@@ -1,4 +1,5 @@
 import './App.css';
+import EmployeeList from './components/EmployeeList';
 import Employeer from './components/Employeer';
 import EmployeeContext from './contexts/EmployeeContext';
 
@@ -7,6 +8,7 @@ function App() {
     <div className="App">
       <EmployeeContext>
         <Employeer />
+        <EmployeeList />
       </EmployeeContext>
     </div>
   );

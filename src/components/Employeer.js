@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { EmployeeContext } from '../contexts/EmployeeContext'
 import styles from './Employeer.module.css'
-import EmployeesList from './EmployeesList';
+let listEmployees = [];
 
 export default function Employeer() {
     const { employeeList, setEmployeeList } = useContext(EmployeeContext);
@@ -10,34 +9,19 @@ export default function Employeer() {
     const { email, setEmail } = useContext(EmployeeContext);
     const { occupation, setOccupation } = useContext(EmployeeContext);
     let idEmployee = 0;
+
     function AddEmployee(e) {
         e.preventDefault();
         if (!name || !email || !occupation) {
-            return alert('Some input is not correct')
+            return alert('Some input is incorrect')
         } else {
             ++idEmployee;
-            employeeList.push({ id: idEmployee, name: name, email: email, occupation: occupation })
+            listEmployees.push({ id: idEmployee, name: name, email: email, occupation: occupation })
+            setEmployeeList(listEmployees)
             console.log(employeeList)
             return alert('Registered Successfully')
         }
     }
-
-    // function showList() {
-    //     return (
-    //     <>
-    //     {employeeList.length > 0 ?
-    //         <div>
-    //             {employeeList.map((element) =>
-    //                 <div>
-    //                     <h1>Employee's name:</h1>
-    //                     <li key={element.id}>{element.name}</li>
-    //                 </div>)}
-    //         </div >
-    //         : <p>Teste</p>
-    //     }
-    //     </>
-    //     )
-    // }
 
     return (
         <div>
@@ -51,7 +35,15 @@ export default function Employeer() {
                 </form>
             </div>
             <div>
-            </div>
+                {/* {!employeeList.length < 0
+                    ? <p>Teste</p>
+                    : employeeList.map((element, index) =>
+                        <div>
+                            <h1>Employee's name:</h1>
+                            <li key={index}>{element.name}</li>
+                        </div>)
+                } */}
+            </div >
         </div >
 
     )
