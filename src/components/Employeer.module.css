@@ -9,3 +9,20 @@
 .employeerInput {
     width: 50%;
 }
+
+.employeeListContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.employeeList {
+    display: flex;
+    list-style: none;
+    width: 50%;
+    flex-direction: column;
+    column-gap: 10px;
+    border: 1px black solid;
+    
+}

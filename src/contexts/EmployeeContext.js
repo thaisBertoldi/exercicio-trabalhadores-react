@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { createContext } from 'react'
+import { createContext,useState } from 'react'
 
 export const EmployeeContext = createContext();
 
