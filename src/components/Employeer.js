@@ -8,7 +8,7 @@ export default function Employeer() {
     const { employeeList, setEmployeeList, name, setName, email, setEmail, occupation, setOccupation } = useContext(EmployeeContext);
     function AddEmployee(e) {
         e.preventDefault();
-        if (!name || !email || !occupation) {
+        if (!name || !email || !occupation || !name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
             return alert('Some input is incorrect')
         } else {
             ++idEmployee
@@ -38,12 +38,6 @@ export default function Employeer() {
 
         let buttonSubmit = document.getElementById('button-submit')
         buttonSubmit.value = 'Update Employee'
-
-        // employeeList.forEach(emp => {
-        //     if(emp.idEmployee === id) {
-        //         employeeList.name = inputName.value
-        //     }
-        // })       
     }
 
     return (
@@ -73,6 +67,5 @@ export default function Employeer() {
                 }
             </div >
         </div >
-
     )
 }

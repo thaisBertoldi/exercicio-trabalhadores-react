@@ -22,6 +22,7 @@
     list-style: none;
     width: 50%;
     flex-direction: column;
+    background-color: white;
     column-gap: 10px;
     border: 1px black solid;
     
