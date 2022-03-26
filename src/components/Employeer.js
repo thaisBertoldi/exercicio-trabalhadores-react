@@ -13,27 +13,31 @@ export default function Employeer() {
         } else {
             ++idEmployee
             setEmployeeList([...employeeList, {idEmployee, name, email, occupation}])
-            
             return alert('Registered Successfully')
         }
     }
 
     function deleteEmployee(id) {
-        setEmployeeList(employeeList.filter(emp => emp.id !== id))
+        setEmployeeList(employeeList.filter(emp => emp.idEmployee !== id))
         console.log(employeeList)
         return alert('Deleted.')
     }
 
     function resetInput() {
-        document.getElementById('teste').reset();
+        document.getElementById('form').reset();
+    }
+    
+    function updateEmployee() {
+        let nameEmpl = name;
+        console.log(nameEmpl)
     }
 
     return (
         <div>
             <div>
                 <h1>EMPLOYEES</h1>
-                <form id='teste' onSubmit={AddEmployee} className={styles.employeerContainer}>
-                    <input type='text'  className={styles.employeerInput} placeholder="Enter the employee's name" onChange={(e) => setName(e.target.value)}></input>
+                <form id='form' onSubmit={AddEmployee} className={styles.employeerContainer}>
+                    <input type='text' className={styles.employeerInput} placeholder="Enter the employee's name" onChange={(e) => setName(e.target.value)}></input>
                     <input type='email' className={styles.employeerInput} placeholder="Enter the employee's email" onChange={(e) => setEmail(e.target.value)}></input>
                     <input type='text' className={styles.employeerInput} placeholder="Enter the employee's occupation" onChange={(e) => setOccupation(e.target.value)}></input>
                     <input type='submit' onClick={() => resetInput()} value='Add employee' />
@@ -47,7 +51,7 @@ export default function Employeer() {
                             <p>Employee's email: {element.email}</p>
                             <p>Employee's occupation: {element.occupation}</p>
                             <div>
-                                <button>Update</button>
+                                <button onClick={() => updateEmployee()}>Update</button>
                                 <button onClick={() => deleteEmployee(element.idEmployee)}>Delete</button>
                             </div>
                         </li>
