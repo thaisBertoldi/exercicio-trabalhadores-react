@@ -1,9 +1,9 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { EmployeeContext } from '../contexts/EmployeeContext'
-import EmployeeList from './EmployeeList';
 import styles from './Employeer.module.css'
 let idEmployee = 0;
 let idUpdate = 0;
+let booleanButtonUpdate = false;
 
 export default function Employeer() {
     const { employeeList, setEmployeeList, name, setName, email, setEmail, occupation, setOccupation } = useContext(EmployeeContext);
@@ -29,7 +29,7 @@ export default function Employeer() {
         document.getElementById('form').reset();
     }
 
-    const getId = (id) => {
+    function getId(id) {
         idUpdate = id;
     }
 
@@ -43,7 +43,7 @@ export default function Employeer() {
         let inputOccup = document.getElementById('input-occup')
         inputOccup.value = occupation;
 
-      //  idUpdate.push({id});
+        booleanButtonUpdate = true;
         getId(id);
         setEmployeeList(employeeList.filter(emp => emp.idEmployee !== id))
     }
@@ -56,6 +56,7 @@ export default function Employeer() {
         } else {
             setEmployeeList([...employeeList, { idEmployee: idUpdate, name, email, occupation }])
             resetInput()
+            booleanButtonUpdate = false;
             return alert('Update Successfully')
         }
     }
@@ -72,7 +73,7 @@ export default function Employeer() {
                     <input type='text' id='input-occup' className={styles.employeerInput}
                         placeholder="Enter the employee's occupation" onChange={(e) => setOccupation(e.target.value)}></input>
                     <button type='submit' onClick={AddEmployee} className={styles.employeeButtons}>Add employee</button>
-                    <button onClick={addEmployeeUpdate} className={styles.employeeButtons}>Update employee</button>
+                    {booleanButtonUpdate && <button onClick={addEmployeeUpdate} className={styles.employeeButtons}>Update employee</button>}
                 </form>
             </div>
             <div>

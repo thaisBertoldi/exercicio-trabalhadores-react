@@ -1,5 +1,4 @@
 import './App.css';
-import EmployeeList from './components/EmployeeList';
 import Employeer from './components/Employeer';
 import EmployeeContext from './contexts/EmployeeContext';
 
