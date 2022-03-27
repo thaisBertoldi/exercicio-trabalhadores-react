@@ -6,6 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: cornflowerblue;
+  background-image: url('https://eskipaper.com/images/super-mario-wallpaper-1.jpg');
+  background-size: 90%;
 }
 
 code {

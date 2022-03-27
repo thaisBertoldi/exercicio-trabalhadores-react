@@ -25,5 +25,15 @@
     background-color: white;
     column-gap: 10px;
     border: 1px black solid;
-    
+    border-radius: 14px;
+    padding-bottom: 10px;
+}
+
+.employeeButtons {
+    width: 150px;
+    height: 30px;
+    color: white;
+    font-weight: bold;
+    background-image: url('https://png.clipart.me/istock/previews/5827/58270652-brick-wall-background.jpg');
+    background-size: 80px;
 }

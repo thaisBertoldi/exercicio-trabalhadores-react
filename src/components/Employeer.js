@@ -8,11 +8,13 @@ export default function Employeer() {
     const { employeeList, setEmployeeList, name, setName, email, setEmail, occupation, setOccupation } = useContext(EmployeeContext);
     function AddEmployee(e) {
         e.preventDefault();
-        if (!name || !email || !occupation || !name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
+        if (!name || !email || !occupation
+            || !name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
             return alert('Some input is incorrect')
         } else {
             ++idEmployee
             setEmployeeList([...employeeList, { idEmployee, name, email, occupation }])
+            resetInput()
             return alert('Registered Successfully')
         }
     }
@@ -26,7 +28,9 @@ export default function Employeer() {
         document.getElementById('form').reset();
     }
 
-    function updateEmployee(id) {
+    let idUpdate = [];
+
+    function updateEmployee(id, name, email, occupation) {
         let inputName = document.getElementById('input-name')
         inputName.value = name
 
@@ -36,19 +40,37 @@ export default function Employeer() {
         let inputOccup = document.getElementById('input-occup')
         inputOccup.value = occupation;
 
-        let buttonSubmit = document.getElementById('button-submit')
-        buttonSubmit.value = 'Update Employee'
+        idUpdate.push({id});
+        setEmployeeList(employeeList.filter(emp => emp.idEmployee !== id))
     }
+
+    function addEmployeeUpdate(e) {
+        e.preventDefault();
+        if (!name || !email || !occupation
+            || !name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
+            return alert('Some input is incorrect')
+        } else {
+            setEmployeeList([...employeeList, { idEmployee: idUpdate.id, name, email, occupation }])
+            resetInput()
+            return alert('Update Successfully')
+        }
+    }
+
+    console.log(employeeList)
 
     return (
         <div>
             <div>
                 <h1>EMPLOYEES</h1>
-                <form id='form' onSubmit={AddEmployee} className={styles.employeerContainer}>
-                    <input type='text' id='input-name' className={styles.employeerInput} placeholder="Enter the employee's name" onChange={(e) => setName(e.target.value)}></input>
-                    <input type='email' id='input-email' className={styles.employeerInput} placeholder="Enter the employee's email" onChange={(e) => setEmail(e.target.value)}></input>
-                    <input type='text' id='input-occup' className={styles.employeerInput} placeholder="Enter the employee's occupation" onChange={(e) => setOccupation(e.target.value)}></input>
-                    <input type='submit' id='button-submit' onClick={() => resetInput()} value='Add employee' />
+                <form id='form' className={styles.employeerContainer}>
+                    <input type='text' id='input-name' className={styles.employeerInput}
+                        placeholder="Enter the employee's name" onChange={(e) => setName(e.target.value)}></input>
+                    <input type='email' id='input-email' className={styles.employeerInput}
+                        placeholder="Enter the employee's email" onChange={(e) => setEmail(e.target.value)}></input>
+                    <input type='text' id='input-occup' className={styles.employeerInput}
+                        placeholder="Enter the employee's occupation" onChange={(e) => setOccupation(e.target.value)}></input>
+                    <button type='submit' onClick={AddEmployee} className={styles.employeeButtons}>Add employee</button>
+                    <button onClick={addEmployeeUpdate} className={styles.employeeButtons}>Update employee</button>
                 </form>
             </div>
             <div>
@@ -59,8 +81,10 @@ export default function Employeer() {
                             <p>Employee's email: {element.email}</p>
                             <p>Employee's occupation: {element.occupation}</p>
                             <div>
-                                <button onClick={() => updateEmployee(element.idEmployee)}>Update</button>
-                                <button onClick={() => deleteEmployee(element.idEmployee)}>Delete</button>
+                                <button className={styles.employeeButtons} onClick={() =>
+                                    updateEmployee(element.idEmployee, element.name, element.email, element.occupation)}>Update</button>
+                                <button className={styles.employeeButtons} onClick={() =>
+                                    deleteEmployee(element.idEmployee)}>Delete</button>
                             </div>
                         </li>
                     </div>)
