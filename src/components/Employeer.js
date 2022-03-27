@@ -3,6 +3,7 @@ import { EmployeeContext } from '../contexts/EmployeeContext'
 import EmployeeList from './EmployeeList';
 import styles from './Employeer.module.css'
 let idEmployee = 0;
+let idUpdate = 0;
 
 export default function Employeer() {
     const { employeeList, setEmployeeList, name, setName, email, setEmail, occupation, setOccupation } = useContext(EmployeeContext);
@@ -28,7 +29,9 @@ export default function Employeer() {
         document.getElementById('form').reset();
     }
 
-    let idUpdate = [];
+    const getId = (id) => {
+        idUpdate = id;
+    }
 
     function updateEmployee(id, name, email, occupation) {
         let inputName = document.getElementById('input-name')
@@ -40,7 +43,8 @@ export default function Employeer() {
         let inputOccup = document.getElementById('input-occup')
         inputOccup.value = occupation;
 
-        idUpdate.push({id});
+      //  idUpdate.push({id});
+        getId(id);
         setEmployeeList(employeeList.filter(emp => emp.idEmployee !== id))
     }
 
@@ -50,13 +54,11 @@ export default function Employeer() {
             || !name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
             return alert('Some input is incorrect')
         } else {
-            setEmployeeList([...employeeList, { idEmployee: idUpdate.id, name, email, occupation }])
+            setEmployeeList([...employeeList, { idEmployee: idUpdate, name, email, occupation }])
             resetInput()
             return alert('Update Successfully')
         }
     }
-
-    console.log(employeeList)
 
     return (
         <div>
