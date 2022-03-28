@@ -2,29 +2,30 @@ import { createContext, useState } from 'react'
 
 export const EmployeeContext = createContext();
 
+let idEmployee = 1;
+let idUpdate = 0;
+let booleanButtonUpdate = false;
+
 function EmployeeProvider({ children }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('')
   const [occupation, setOccupation] = useState('');
   const [employeeList, setEmployeeList] = useState([])
-  let idEmployee = 0;
-  let idUpdate = 0;
-  let booleanButtonUpdate = false;
 
   function AddEmployee(e) {
     e.preventDefault();
-    if (!name || !email || !occupation
-      || !name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
+    if (!name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
       return alert('Some input is incorrect')
     } else {
-      ++idEmployee
       setEmployeeList([...employeeList, { idEmployee, name, email, occupation }])
       resetInput()
+      idEmployee++
       return alert('Registered Successfully')
     }
   }
-  function deleteEmployee(id) {
-    setEmployeeList(employeeList.filter(emp => emp.idEmployee !== id))
+
+  function deleteEmployee(idEmployee) {
+    setEmployeeList(employeeList.filter(emp => emp.idEmployee !== idEmployee))
     return alert('Deleted.')
   }
 
@@ -32,11 +33,11 @@ function EmployeeProvider({ children }) {
     document.getElementById('form').reset();
   }
 
-  function getId(id) {
-    return idUpdate = id;
+  function getId(idEmployee) {
+    return idUpdate = idEmployee;
   }
 
-  function updateEmployee(id, name, email, occupation) {
+  function updateEmployee(idEmployee, name, email, occupation) {
     let inputName = document.getElementById('input-name')
     inputName.value = name
 
@@ -47,14 +48,13 @@ function EmployeeProvider({ children }) {
     inputOccup.value = occupation;
 
     booleanButtonUpdate = true;
-    getId(id);
-    setEmployeeList(employeeList.filter(emp => emp.idEmployee !== id))
+    getId(idEmployee);
+    setEmployeeList(employeeList.filter(emp => emp.idEmployee !== idEmployee))
   }
 
   function addEmployeeUpdate(e) {
     e.preventDefault();
-    if (!name || !email || !occupation
-      || !name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
+    if (!name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
       return alert('Some input is incorrect')
     } else {
       setEmployeeList([...employeeList, { idEmployee: idUpdate, name, email, occupation }])
@@ -67,7 +67,7 @@ function EmployeeProvider({ children }) {
   return (
     <EmployeeContext.Provider value={{
       name, setName, email, setEmail, occupation, setOccupation, employeeList, setEmployeeList,
-      AddEmployee, deleteEmployee, updateEmployee, idEmployee, booleanButtonUpdate, 
+      AddEmployee, deleteEmployee, updateEmployee, idEmployee, booleanButtonUpdate,
       addEmployeeUpdate
     }}>
       {children}
