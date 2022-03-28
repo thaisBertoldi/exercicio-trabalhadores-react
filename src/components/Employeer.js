@@ -1,65 +1,69 @@
 import { useContext } from 'react'
 import { EmployeeContext } from '../contexts/EmployeeContext'
 import styles from './Employeer.module.css'
-let idEmployee = 0;
-let idUpdate = 0;
-let booleanButtonUpdate = false;
+// let idEmployee = 0;
+// let idUpdate = 0;
+// let booleanButtonUpdate = false;
 
 export default function Employeer() {
-    const { employeeList, setEmployeeList, name, setName, email, setEmail, occupation, setOccupation } = useContext(EmployeeContext);
-    function AddEmployee(e) {
-        e.preventDefault();
-        if (!name || !email || !occupation
-            || !name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
-            return alert('Some input is incorrect')
-        } else {
-            ++idEmployee
-            setEmployeeList([...employeeList, { idEmployee, name, email, occupation }])
-            resetInput()
-            return alert('Registered Successfully')
-        }
-    }
+    const { name, setName, email, setEmail, occupation, setOccupation, employeeList, setEmployeeList,
+        AddEmployee, deleteEmployee, idEmployee, booleanButtonUpdate, 
+        updateEmployee, addEmployeeUpdate } = useContext(EmployeeContext);
 
-    function deleteEmployee(id) {
-        setEmployeeList(employeeList.filter(emp => emp.idEmployee !== id))
-        return alert('Deleted.')
-    }
 
-    function resetInput() {
-        document.getElementById('form').reset();
-    }
+    // function AddEmployee(e) {
+    //     e.preventDefault();
+    //     if (!name || !email || !occupation
+    //         || !name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
+    //         return alert('Some input is incorrect')
+    //     } else {
+    //         ++idEmployee
+    //         setEmployeeList([...employeeList, { idEmployee, name, email, occupation }])
+    //         resetInput()
+    //         return alert('Registered Successfully')
+    //     }
+    // }
 
-    function getId(id) {
-        idUpdate = id;
-    }
+    // function deleteEmployee(id) {
+    //     setEmployeeList(employeeList.filter(emp => emp.idEmployee !== id))
+    //     return alert('Deleted.')
+    // }
 
-    function updateEmployee(id, name, email, occupation) {
-        let inputName = document.getElementById('input-name')
-        inputName.value = name
+    // function resetInput() {
+    //     document.getElementById('form').reset();
+    // }
 
-        let inputEmail = document.getElementById('input-email')
-        inputEmail.value = email
+    // function getId(id) {
+    //     idUpdate = id;
+    // }
 
-        let inputOccup = document.getElementById('input-occup')
-        inputOccup.value = occupation;
+    // function updateEmployee(id, name, email, occupation) {
+    //     let inputName = document.getElementById('input-name')
+    //     inputName.value = name
 
-        booleanButtonUpdate = true;
-        getId(id);
-        setEmployeeList(employeeList.filter(emp => emp.idEmployee !== id))
-    }
+    //     let inputEmail = document.getElementById('input-email')
+    //     inputEmail.value = email
 
-    function addEmployeeUpdate(e) {
-        e.preventDefault();
-        if (!name || !email || !occupation
-            || !name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
-            return alert('Some input is incorrect')
-        } else {
-            setEmployeeList([...employeeList, { idEmployee: idUpdate, name, email, occupation }])
-            resetInput()
-            booleanButtonUpdate = false;
-            return alert('Update Successfully')
-        }
-    }
+    //     let inputOccup = document.getElementById('input-occup')
+    //     inputOccup.value = occupation;
+
+    //     booleanButtonUpdate = true;
+    //     getId(id);
+    //     setEmployeeList(employeeList.filter(emp => emp.idEmployee !== id))
+    // }
+
+    // function addEmployeeUpdate(e) {
+    //     e.preventDefault();
+    //     if (!name || !email || !occupation
+    //         || !name.match(/[a-z]/gi) || !email.match(/[\w.]+@\w+\.\w+\.?\w*/gi) || !(occupation.match(/[a-z]/gi))) {
+    //         return alert('Some input is incorrect')
+    //     } else {
+    //         setEmployeeList([...employeeList, { idEmployee: idUpdate, name, email, occupation }])
+    //         resetInput()
+    //         booleanButtonUpdate = false;
+    //         return alert('Update Successfully')
+    //     }
+    // }
 
     return (
         <div>
